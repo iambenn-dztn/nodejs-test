@@ -5,8 +5,8 @@ const Item = sequelize.define(
   "Item",
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     name: {
@@ -17,7 +17,7 @@ const Item = sequelize.define(
       type: DataTypes.TEXT,
     },
     gameId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       references: {
         model: "Games",
         key: "id",

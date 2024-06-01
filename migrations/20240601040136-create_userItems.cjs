@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("UserItems", {
       userId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         primaryKey: true,
         references: {
           model: "Users",
@@ -12,7 +12,7 @@ module.exports = {
         },
       },
       itemId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         primaryKey: true,
         references: {
           model: "Items",

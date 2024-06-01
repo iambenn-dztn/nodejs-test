@@ -5,7 +5,7 @@ const UserItem = sequelize.define(
   "UserItem",
   {
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
       references: {
         model: "Users",
@@ -13,7 +13,7 @@ const UserItem = sequelize.define(
       },
     },
     itemId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
       references: {
         model: "Items",
