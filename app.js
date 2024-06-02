@@ -4,8 +4,10 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import db from "./src/configs/sequelize.js";
 import { errorHandler } from "./src/middlewares/error.middleware.js";
-import router from "./src/routes/index.js";
+import protectedRouter from "./src/routes/protected-routes.js";
+import unprotectedRouter from "./src/routes/unprotected-routes.js";
 import dotenv from "dotenv";
+import { checkJwt } from "./src/middlewares/checkJwt.middleware.js";
 
 dotenv.config();
 
@@ -22,8 +24,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(limiter);
 
-// Routes
-app.use("/api", router);
+// Unprotected routes
+app.use("/api", unprotectedRouter);
+
+// Protected routes
+app.use(checkJwt);
+app.use("/api", protectedRouter);
 
 app.use(errorHandler);
 
@@ -31,10 +37,10 @@ app.use(errorHandler);
 db.sequelize
   .sync()
   .then(() => {
-    console.log("Synced db.");
+    console.log("Connect db successfully.");
   })
   .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
+    console.log("Failed to connect db: " + err.message);
   });
 
 export default app;

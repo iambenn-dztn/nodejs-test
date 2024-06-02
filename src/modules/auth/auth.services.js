@@ -9,7 +9,7 @@ class AuthService {
   generateAccessToken(user) {
     return jwt.sign(
       { username: user.username, role: user.role },
-      process.env.SECRET_KEY
+      process.env.JWT_SECRET
     );
   }
 
@@ -26,7 +26,7 @@ class AuthService {
   async login(userData) {
     const { username, password } = userData;
 
-    const user = await userService.findFirst({ where: { username } });
+    const user = await userService.findFirst({ username });
     if (!user) {
       throw new ApiError(
         httpStatusCodes.BAD_REQUEST,

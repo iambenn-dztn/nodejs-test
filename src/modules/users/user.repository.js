@@ -9,8 +9,8 @@ class UserRepository {
     return await User.findAll({ having: { deletedAt: null } });
   }
 
-  async findFirst() {
-    return await User.findOne({ having: { deletedAt: null } });
+  async findFirst(params) {
+    return await User.findOne({ having: { ...params, deletedAt: null } });
   }
 
   async create(userData) {
