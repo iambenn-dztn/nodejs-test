@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import db from "./src/configs/sequelize.js";
 import router from "./src/routes/index.js";
+import { errorHandler } from "./src/middlewares/error.middleware.js";
 
 const app = express();
 
@@ -11,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api", router);
+
+app.use(errorHandler);
 
 // Sync database
 db.sequelize
