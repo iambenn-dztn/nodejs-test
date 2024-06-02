@@ -5,8 +5,12 @@ class UserRepository {
     return await User.findByPk(id);
   }
 
+  async findUsers() {
+    return await User.findAll({ having: { deletedAt: null } });
+  }
+
   async findFirst() {
-    return await User.findOne({ having: { deletedAt: null }, limit: 1 });
+    return await User.findOne({ having: { deletedAt: null } });
   }
 
   async create(userData) {

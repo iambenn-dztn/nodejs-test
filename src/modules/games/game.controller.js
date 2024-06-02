@@ -1,66 +1,66 @@
 import { httpStatusCodes } from "../../constants/httpStatusCodes.js";
 import ApiError from "../../exceptions/ApiError.js";
-import UserService from "./user.service.js";
+import GameService from "./game.service.js";
 
-class UserController {
+class GameController {
   async findById(req, res, next) {
     try {
-      const user = await UserService.findById(req.params.id);
+      const game = await GameService.findById(req.params.id);
 
-      if (user) {
-        res.status(httpStatusCodes.OK).json(user);
+      if (game) {
+        res.status(httpStatusCodes.OK).json(game);
       } else {
-        next(new ApiError(httpStatusCodes.NOT_FOUND, "User not found"));
+        next(new ApiError(httpStatusCodes.NOT_FOUND, "Game not found"));
       }
     } catch (error) {
       next(new ApiError(httpStatusCodes.INTERNAL_SERVER_ERROR, error.message));
     }
   }
 
-  async findUsers(req, res, next) {
+  async findGames(_req, res, next) {
     try {
-      const users = await UserService.findUsers();
-      res.status(httpStatusCodes.OK).json(users);
+      const games = await GameService.findGames();
+      res.status(httpStatusCodes.OK).json(games);
     } catch (error) {
       next(new ApiError(httpStatusCodes.INTERNAL_SERVER_ERROR, error.message));
     }
   }
 
-  async createUser(req, res, next) {
+  async createGame(req, res, next) {
     try {
-      const user = await UserService.createUser(req.body);
-      res.status(httpStatusCodes.CREATED).json(user);
+      const game = await GameService.createGame(req.body);
+      res.status(httpStatusCodes.CREATED).json(game);
     } catch (error) {
       next(new ApiError(httpStatusCodes.INTERNAL_SERVER_ERROR, error.message));
     }
   }
 
-  async updateUser(req, res, next) {
+  async updateGame(req, res, next) {
     try {
-      const user = await UserService.updateUser(req.params.id, req.body);
+      const game = await GameService.updateGame(req.params.id, req.body);
 
-      if (user) {
-        res.status(httpStatusCodes.ACCEPTED).json(user);
+      if (game) {
+        res.status(httpStatusCodes.ACCEPTED).json(game);
       } else {
         res
           .status(httpStatusCodes.NOT_FOUND)
-          .json({ message: "User not found" });
+          .json({ message: "Game not found" });
       }
     } catch (error) {
       next(new ApiError(httpStatusCodes.INTERNAL_SERVER_ERROR, error.message));
     }
   }
 
-  async deleteUser(req, res, next) {
+  async deleteGame(req, res, next) {
     try {
-      const result = await UserService.deleteUser(req.params.id);
+      const result = await GameService.deleteGame(req.params.id);
 
       if (result) {
         res.status(httpStatusCodes.NO_CONTENT).end();
       } else {
         res
           .status(httpStatusCodes.NOT_FOUND)
-          .json({ message: "User not found" });
+          .json({ message: "Game not found" });
       }
     } catch (error) {
       next(new ApiError(httpStatusCodes.INTERNAL_SERVER_ERROR, error.message));
@@ -68,4 +68,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default new GameController();
