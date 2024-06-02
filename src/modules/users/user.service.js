@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { httpStatusCodes } from "../../constants/httpStatusCodes.js";
 import ApiError from "../../exceptions/ApiError.js";
 import UserRepository from "./user.repository.js";
@@ -7,12 +8,21 @@ class UserService {
     return await UserRepository.findById(id);
   }
 
+  async findFirst(params) {
+    return await UserRepository.findFirst(params);
+  }
+
   async findUsers() {
     return await UserRepository.findUsers();
   }
 
   async createUser(userData) {
-    return await UserRepository.create(userData);
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+    return await UserRepository.create({
+      ...userData,
+      password: hashedPassword,
+    });
   }
 
   async updateUser(id, userData) {

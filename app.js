@@ -5,6 +5,9 @@ import rateLimit from "express-rate-limit";
 import db from "./src/configs/sequelize.js";
 import { errorHandler } from "./src/middlewares/error.middleware.js";
 import router from "./src/routes/index.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
