@@ -23,6 +23,9 @@ const Game = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    deletedAt: {
+      type: DataTypes.DATE,
+    },
   },
   {
     timestamps: false,
