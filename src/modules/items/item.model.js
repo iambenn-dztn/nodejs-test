@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/db.config.js";
+import db from "../../configs/sequelize.js";
 
-const Item = sequelize.define(
+const Item = db.sequelize.define(
   "Item",
   {
     id: {
