@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/db.config.js";
+import db from "../../configs/sequelize.js";
 
-const UserGame = sequelize.define(
+const UserGame = db.sequelize.define(
   "UserGame",
   {
     userId: {
